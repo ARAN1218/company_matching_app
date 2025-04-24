@@ -19,6 +19,12 @@ industry_intros = gyoukai_info.INDUSTRIES_INFO
 # .envファイルから環境変数を読み込む(テスト時のみ有効)
 # from dotenv import load_dotenv
 # load_dotenv()
+# file_id = os.environ.get("COMPANY_FILE_ID")
+# gemini_api_key = os.environ.get("GEMINI_API_KEY")
+
+# .envファイルから環境変数を読み込む(本番時のみ有効)
+file_id = st.secrets["COMPANY_FILE_ID"]
+gemini_api_key = st.secrets["GEMINI_API_KEY"]
 
 # アプリのタイトルと設定
 st.set_page_config(layout="wide")
@@ -31,8 +37,6 @@ def load_data():
     # CSVファイルの読み込み
     try:
         # search result [1] を参照
-        # file_id = os.environ.get("COMPANY_FILE_ID")
-        file_id = st.secrets["COMPANY_FILE_ID"]
         url = f"https://drive.google.com/uc?id={file_id}"
         df = pd.read_csv(url)
     except FileNotFoundError:
@@ -332,8 +336,6 @@ if app_mode == "🔎 企業マッチング":
         # AI説明文一括生成と分割
         ai_descriptions = [""] * len(result_df)
         if use_ai_description and not result_df.empty:
-            # gemini_api_key = os.environ.get("GEMINI_API_KEY")
-            gemini_api_key = st.secrets["GEMINI_API_KEY"]
             if not gemini_api_key:
                 st.warning("環境変数にGEMINI_API_KEYが設定されていません。AIによる説明文生成はスキップされます。")
                 ai_descriptions = ["AI説明文生成不可（APIキー未設定）"] * len(result_df)
