@@ -5,6 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.preprocessing import MinMaxScaler
 import plotly.graph_objects as go
 import os
+# from PIL import Image
 # LangChain & Google Generative AI 関連
 from langchain_google_genai import ChatGoogleGenerativeAI
 # from langchain.prompts import PromptTemplate
@@ -26,8 +27,15 @@ industry_intros = gyoukai_info.INDUSTRIES_INFO
 file_id = st.secrets["COMPANY_FILE_ID"]
 gemini_api_key = st.secrets["GEMINI_API_KEY"]
 
+
 # アプリのタイトルと設定
-st.set_page_config(layout="wide")
+# 画像も設定できる：favicon = Image.open("favicon.ico")
+st.set_page_config(
+    page_title="企業・業界マッチングアプリ",
+    page_icon="🏢",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 st.title('🔍 企業・業界マッチングアプリ')
 st.write('✨ あなたの希望条件に合った企業や業界を見つけましょう！')
 
