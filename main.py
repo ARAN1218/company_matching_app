@@ -14,8 +14,10 @@ from langchain_core.output_parsers import StrOutputParser
 import google.api_core.exceptions
 import gyoukai
 import gyoukai_info
+import slider_captions
 industries_list = gyoukai.INDUSTRIES_LIST
 industry_intros = gyoukai_info.INDUSTRIES_INFO
+slider_captions = slider_captions.SLIDER_CAPTIONS
 
 # .envファイルから環境変数を読み込む(テスト時のみ有効)
 # from dotenv import load_dotenv
@@ -124,7 +126,12 @@ st.sidebar.subheader('🎯 あなたの希望条件を入力してください (
 st.sidebar.caption("各項目について、あなたが企業や業界に求める度合いを1(低い)〜5(高い)で評価してください。")
 user_preferences = {}
 for feature in features:
-    user_preferences[feature] = st.sidebar.slider(f'{feature}', 1.0, 5.0, 3.0, 0.1, key=f"common_{feature}")
+    user_preferences[feature] = st.sidebar.markdown(f"**{feature}**")  # タイトル
+    st.sidebar.caption(slider_captions.get(feature, ""))  # キャプション（薄い文字）
+    user_preferences[feature] = st.sidebar.slider(
+        " ",  # ラベルは空にしてタイトルとキャプションだけ表示
+        1.0, 5.0, 3.0, 0.1, key=f"common_{feature}"
+    )
 
 # --- 共通関数 ---
 # レーダーチャート描画 (変更なし)
