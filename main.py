@@ -20,14 +20,14 @@ industry_intros = gyoukai_info.INDUSTRIES_INFO
 slider_captions = slider_captions.SLIDER_CAPTIONS
 
 # .envファイルから環境変数を読み込む(テスト時のみ有効)
-# from dotenv import load_dotenv
-# load_dotenv()
-# file_id = os.environ.get("COMPANY_FILE_ID")
-# gemini_api_key = os.environ.get("GEMINI_API_KEY")
+from dotenv import load_dotenv
+load_dotenv()
+file_id = os.environ.get("COMPANY_FILE_ID")
+gemini_api_key = os.environ.get("GEMINI_API_KEY")
 
 # .envファイルから環境変数を読み込む(本番時のみ有効)
-file_id = st.secrets["COMPANY_FILE_ID"]
-gemini_api_key = st.secrets["GEMINI_API_KEY"]
+# file_id = st.secrets["COMPANY_FILE_ID"]
+# gemini_api_key = st.secrets["GEMINI_API_KEY"]
 
 
 # アプリのタイトルと設定
@@ -221,7 +221,7 @@ def generate_company_descriptions(companies, api_key):
 
     try:
         # LLMの初期化
-        llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.7, convert_system_message_to_human=False, google_api_key=api_key)
+        llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.7, convert_system_message_to_human=False, google_api_key=api_key)
 
         # プロンプトテンプレート
         template = """
@@ -297,7 +297,7 @@ if app_mode == "🔎 企業マッチング":
     # Gemini一括説明文生成
     def generate_bulk_company_descriptions(companies, api_key):
         try:
-            llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.7, convert_system_message_to_human=False, google_api_key=api_key)
+            llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.7, convert_system_message_to_human=False, google_api_key=api_key)
             from langchain_core.prompts import ChatPromptTemplate
             from langchain_core.output_parsers import StrOutputParser
             template = (
@@ -485,7 +485,7 @@ elif app_mode == "📊 業界マッチング":
             if gemini_api_key:
                 try:
                     llm = ChatGoogleGenerativeAI(
-                        model="gemini-1.5-pro",
+                        model="gemini-1.5-flash",
                         temperature=0.7,
                         convert_system_message_to_human=False,
                         google_api_key=gemini_api_key
