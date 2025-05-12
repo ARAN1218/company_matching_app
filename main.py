@@ -20,14 +20,14 @@ industry_intros = gyoukai_info.INDUSTRIES_INFO
 slider_captions = slider_captions.SLIDER_CAPTIONS
 
 # .envファイルから環境変数を読み込む(テスト時のみ有効)
-from dotenv import load_dotenv
-load_dotenv()
-file_id = os.environ.get("COMPANY_FILE_ID")
-gemini_api_key = os.environ.get("GEMINI_API_KEY")
+# from dotenv import load_dotenv
+# load_dotenv()
+# file_id = os.environ.get("COMPANY_FILE_ID")
+# gemini_api_key = os.environ.get("GEMINI_API_KEY")
 
 # .envファイルから環境変数を読み込む(本番時のみ有効)
-# file_id = st.secrets["COMPANY_FILE_ID"]
-# gemini_api_key = st.secrets["GEMINI_API_KEY"]
+file_id = st.secrets["COMPANY_FILE_ID"]
+gemini_api_key = st.secrets["GEMINI_API_KEY"]
 
 
 # アプリのタイトルと設定
